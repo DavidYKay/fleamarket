@@ -1,0 +1,15 @@
+New Item
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Done" />
+</form>
+    <!--
+    <p>{{ form.seller.label_tag }} {{ form.seller }}</p>
+    <p>{{ form.on_hand.label_tag }} {{ form.on_hand }}</p>
+    <p>{{ form.was_sold.label_tag }} {{ form.was_sold }}</p>
+
+    <p>{{ form.price.label_tag }} {{ form.price }}</p>
+    <p>{{ form.description.label_tag }} {{ form.description }}</p>
+
+    -->
