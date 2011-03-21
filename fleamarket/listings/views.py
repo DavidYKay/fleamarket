@@ -11,6 +11,13 @@ def testPrint(request):
         'latest_item_list': latest_item_list,
     })
 
+def list(request):
+    items = Item.objects.filter(seller__exact=request.user)
+    #items = Item.objects.filter(seller__exact=1)
+    #items = Item.objects.filter(seller__exact=4)
+    #items = Item.objects.all()
+    return render_to_response('listings/item_list.html', {'object_list': items}, context_instance=RequestContext(request))
+
 def new(request):
     if request.method == 'POST':
         # We're accepting form data for save to DB

@@ -36,7 +36,7 @@ def register(request):
             user.set_password(raw_password)
             user.first_name = cd['first_name']
             user.last_name = cd['last_name']
-            # TODO: Add Email Field
+            # TODO: Add Phone Field
             user.save()
             return HttpResponseRedirect("/listings/")
     else:

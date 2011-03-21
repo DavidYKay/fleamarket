@@ -7,12 +7,19 @@ info_dict = {
     'queryset': Item.objects.all(),
 }
 
+my_listings_dict = {
+        # TODO: How to feed in the proper seller id to this query
+    'queryset': Item.objects.filter(seller__exact=4),
+}
+
 item_info = {
     'model': Item,
 }
 
 urlpatterns = patterns('',
-    (r'^$', 'django.views.generic.list_detail.object_list', info_dict),
+    #(r'^$', 'django.views.generic.list_detail.object_list', info_dict),
+    #(r'^$', 'django.views.generic.list_detail.object_list', my_listings_dict),
+    (r'^$', views.list),
     #(r'^new/$', 'django.views.generic.create_update.create_object', item_info),
     #(r'^create/$', views.create),
     (r'^new/$', views.new),
