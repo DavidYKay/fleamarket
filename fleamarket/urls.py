@@ -8,9 +8,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Login/Logout
+    (r'^accounts/$',  login),
     (r'^accounts/login/$',  login),
     (r'^accounts/logout/$', logout),
     (r'^accounts/profile/$', views.profile),
+    (r'^accounts/register/$', views.register),
 
     # Listings
     (r'^listings/', include('fleamarket.listings.urls')),
