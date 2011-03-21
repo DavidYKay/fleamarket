@@ -13,9 +13,7 @@ def profile(request):
         # pull data about user
         # render user to screen
         # Do something for authenticated users.
-        #return HttpResponse("Logged in as: %s" % request.user.username)
         return render_to_response('registration/profile.html', {'user': request.user}, context_instance=RequestContext(request))
     else:
         # Do something for anonymous users.
         return HttpResponse("You are NOT logged in!")
-

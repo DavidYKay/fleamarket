@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    You must be logged in to view this page.
+
+    <form action="/accounts/login" method="get">
+        <input type="submit" value="Login" />
+    </form>
+
+{% endblock %}

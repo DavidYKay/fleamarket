@@ -13,10 +13,22 @@ def testPrint(request):
 
 def new(request):
     if request.method == 'POST':
+        # We're accepting form data for save to DB
+        if not request.user.is_authenticated():
+            return render_to_response('registration/pleaselogin.html')
         form = NewItemForm(request.POST)
-        if form.is_valid():
-            new_item = form.save()
-            cd = form.cleaned_data
+        if not form.is_valid():
+            # throw error
+            return HttpResponse("Error! Form invalid. Form: %s" % form)
+        else:
+            new_item = form.save(commit=False) 
+
+            # grab the user id from the current user
+            #new_item.seller = request.user.id
+            new_item.seller = request.user
+
+            #cd = form.cleaned_data
+            new_item.save()
             #send_mail(
             #    cd['subject'],
             #    cd['message'],
@@ -24,10 +36,13 @@ def new(request):
             #    ['siteowner@example.com'],
             #)
             #return HttpResponseRedirect('/contact/thanks/')
-        else:
-            # throw error
-            return HttpResponse("Error! Form invalid. Form: %s" % form)
         return HttpResponseRedirect('/listings/')
     else:
-        form = NewItemForm()
-        return render_to_response('listings/item_form.html', {'form': form}, context_instance=RequestContext(request))
+        # user GET
+        if not request.user.is_authenticated():
+            # not logged in
+            return render_to_response('registration/pleaselogin.html')
+        else:
+            # we are logged in
+            form = NewItemForm()
+            return render_to_response('listings/item_form.html', {'form': form}, context_instance=RequestContext(request))
