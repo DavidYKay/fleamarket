@@ -4,9 +4,11 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from forms import NewSellerForm
 
 def profile(request):
     """ Renders user's profile """
@@ -22,12 +24,23 @@ def profile(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = NewSellerForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
+            #new_user = form.save()
+            cd = form.cleaned_data
+            raw_password = cd['password']
+            user = User.objects.create_user(
+                cd['username'],
+                cd['email'],
+            )
+            user.set_password(raw_password)
+            user.first_name = cd['first_name']
+            user.last_name = cd['last_name']
+            # TODO: Add Email Field
+            user.save()
             return HttpResponseRedirect("/listings/")
     else:
-        form = UserCreationForm()
+        form = NewSellerForm()
     return render_to_response("registration/register.html", {
             'form': form,
         }, 

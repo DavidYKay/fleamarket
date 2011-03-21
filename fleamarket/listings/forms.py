@@ -6,9 +6,9 @@ class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item 
         fields = (
-                'description',
-                'price', 
-                )
+            'description',
+            'price', 
+        )
     #price = forms.IntegerField()
     #description = forms.CharField(max_length=200)
 

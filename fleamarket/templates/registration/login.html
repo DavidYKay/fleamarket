@@ -16,5 +16,10 @@
         <input type="submit" value="login" />
         <input type="hidden" name="next" value="{{ next|escape }}" />
     </form>
+    
+    <form action="/accounts/register/" method="get">
+        {% csrf_token %}
+        <input type="submit" value="Register" />
+    </form>
 
 {% endblock %}
