@@ -1,16 +1,22 @@
 from django.conf.urls.defaults import *
+from django.contrib.auth.views import login, logout
+import views
 
 # enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^fleamarket/', include('fleamarket.foo.urls')),
-     (r'^listings/', include('fleamarket.listings.urls')),
+    # Login/Logout
+    (r'^accounts/login/$',  login),
+    (r'^accounts/logout/$', logout),
+    (r'^accounts/profile/$', views.profile),
 
-    # enable admin documentation:
+    # Listings
+    (r'^listings/', include('fleamarket.listings.urls')),
+
+    # admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    # enable the admin:
+    # admin:
     (r'^admin/', include(admin.site.urls)),
 )
