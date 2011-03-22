@@ -81,18 +81,27 @@ def cash_register(request):
     """ User interface for selling items on register. """
     return render_to_response('listings/cash_register.html', context_instance=RequestContext(request))
 
-def checkin(request):
+def checkin(request, object_id):
     """ User interface for checking items in/out. """
-    return render_to_response('listings/cash_checkin.html', context_instance=RequestContext(request))
+    items = Item.objects.filter(seller__exact=object_id)
+    return render_to_response('listings/cash_checkin.html', {'object_list': items}, context_instance=RequestContext(request))
 
 def checkin_list(request):
     """ Pick which user to check in/out. """
-    form = WhichSellerForm()
-    return render_to_response("listings/pick_seller_form.html", {
-            'form': form,
-        }, 
-        context_instance=RequestContext(request)
-    )
+    if request.method == 'POST':
+        form = WhichSellerForm(request.POST)
+        if not form.is_valid():
+            # throw error
+            return HttpResponse("Error! Form invalid. Form: %s" % form)
+        else:
+            return HttpResponseRedirect('/listings/checkin/%d' % form.cleaned_data['seller'].id)
+    else: 
+        form = WhichSellerForm()
+        return render_to_response("listings/pick_seller_form.html", {
+                'form': form,
+            }, 
+            context_instance=RequestContext(request)
+        )
 
     #return render_to_response('listings/seller_list.html', context_instance=RequestContext(request))
     #users = User.objects.all()
