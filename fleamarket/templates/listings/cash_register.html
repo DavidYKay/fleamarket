@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %} Cash Register {% endblock %}
+
+{% block content %}
+
+<h1> Cash Register </h1> 
+
+Current Items:
+
+T-Shirt $50 123456789
+
+Till
+Due
+Change
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Add New Item">
+</form>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Checkout">
+</form>
+
+{% endblock %}
