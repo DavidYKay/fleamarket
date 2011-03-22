@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     #(r'^$', 'django.views.generic.list_detail.object_list', info_dict),
     #(r'^$', 'django.views.generic.list_detail.object_list', my_listings_dict),
     (r'^$', views.list),
+    (r'^print/$', views.print_friendly),
+    #(r'^$', 'django.views.generic.list_detail.object_list', my_listings_dict),
     #(r'^new/$', 'django.views.generic.create_update.create_object', item_info),
     #(r'^create/$', views.create),
     (r'^new/$', views.new),
@@ -32,7 +34,6 @@ urlpatterns = patterns('',
             #'model': Item,
         }
     ),
-
 
     # We're naming this 'item_results'
     url(r'^(?P<object_id>\d+)/results/$', 'django.views.generic.list_detail.object_detail', dict(info_dict, template_name='items/results.html'), 'item_results'),

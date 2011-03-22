@@ -55,3 +55,13 @@ def new(request):
             # we are logged in
             form = NewItemForm()
             return render_to_response('listings/item_form.html', {'form': form}, context_instance=RequestContext(request))
+
+def print_friendly(request):
+    """ Render all items in a printer-friendly manner """ 
+    if request.user.is_authenticated():
+        # Show current user's items only
+        items = Item.objects.filter(seller__exact=request.user)
+    else:
+        # Show all items. can show 404 instead.
+        items = Item.objects.all()
+    return render_to_response('listings/item_list_print.html', {'object_list': items}, context_instance=RequestContext(request))
